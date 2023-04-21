@@ -1,0 +1,23 @@
+﻿<Window x:Class="MovieList.CreateMovieWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MovieList"
+        mc:Ignorable="d"
+        Title="Create Movie 📽️" Height="450" Width="800" ResizeMode="NoResize">
+    <Grid>
+        <Label Content="Create New Movie" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="200"/>
+        <Label Content="Title:" HorizontalAlignment="Left" Margin="10,76,0,0" VerticalAlignment="Top"/>
+        <Label Content="Release Year:" HorizontalAlignment="Left" Margin="10,107,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textbox_createmovie_title" HorizontalAlignment="Left" Margin="110,80,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200"/>
+        <TextBox x:Name="textbox_createmovie_release" HorizontalAlignment="Left" Margin="110,111,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200"/>
+        <TextBox x:Name="textbox_createmovie_description" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Left" Margin="110,142,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Height="259"/>
+        <Label Content="Description:" HorizontalAlignment="Left" Margin="10,138,0,0" VerticalAlignment="Top" Width="85"/>
+        <Button x:Name="btnCreateMovie" Content="Create Movie" HorizontalAlignment="Center" Margin="0,355,0,0" VerticalAlignment="Top" Height="47" Width="132" BorderBrush="Black" Foreground="Black" Background="#FFB3D8A5" Click="btnCreateMovie_click"/>
+        <Button x:Name="btnCancelCreateMovie" Content="Cancel" HorizontalAlignment="Left" Margin="484,354,0,0" VerticalAlignment="Top" Height="47" Width="132" BorderBrush="Black" Foreground="Black" Background="#FFD8A5A5" Click="btnCancelCreateMovie_click"/>
+        
+
+
+    </Grid>
+</Window>

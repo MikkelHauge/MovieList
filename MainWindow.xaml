@@ -1,0 +1,45 @@
+﻿<Window x:Class="MovieList.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MovieList"
+        mc:Ignorable="d"
+        Title="Movie List 🎬" Height="500" Width="1000" ResizeMode="NoResize">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFE9FFBB"/>
+                <GradientStop Color="#FF5A7D79" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Rectangle HorizontalAlignment="Left" Height="323" Margin="478,98,0,0" Stroke="Black" VerticalAlignment="Top" Width="241" Fill="White"/>
+
+        <Label x:Name="lblUserID" Content="" HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top" Height="29" Width="240"/>
+        <Label x:Name="labelUsername" Content="Users" Margin="10,0,743,417" VerticalAlignment="Bottom" Height="29"/>
+        <Label x:Name="labelMovieTitel" HorizontalAlignment="Left" Margin="750,65,0,0" VerticalAlignment="Top" Height="29" Width="240"/>
+
+        <Label x:Name="Errorlabel" Content="Errorlabel" HorizontalAlignment="Left" Margin="785,20,0,0" VerticalAlignment="Top" Height="29" Width="181"/>
+        <ListView x:Name="UserListBox" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,96,0,63" SelectionChanged="UserListBox_SelectionChanged" HorizontalAlignment="Left" Width="240"/>
+        <ListBox x:Name="MovieListBox" SelectionChanged="MovieListBox_selectionChanged" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="265,98,562,63"/>
+
+        <ListView x:Name="MovieListBoxAll" SelectionChanged="MovieListBoxAll_selectionChanged" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,96,10,63"  HorizontalAlignment="Right" Width="240" Background="White"/>
+        <Label x:Name="LabelWatchCount" Content="How many wants to watch:" HorizontalAlignment="Left" Margin="478,426,0,0" VerticalAlignment="Top" Width="241"/>
+        <Button x:Name="ButtonCreateUser" Content="Create User" Margin="95,0,0,18" Height="34" Click="ButtonCreateUser_click" Background="#FFC5FBC0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="70"/>
+        <Button x:Name="ButtonDeleteUser" Content="Delete User" HorizontalAlignment="Left" Margin="180,0,0,18" VerticalAlignment="Bottom" Height="34" Width="70" Background="#FFCA8C8C" Click="ButtonDeleteUser_click"/>
+        <Button x:Name="ButtonEditUser" Content="Edit User" HorizontalAlignment="Left" Margin="10,0,0,18" VerticalAlignment="Bottom" Height="34" Width="70" Click="ButtonEditUser_click" Background="#FFA9E2FF"/>
+
+
+        <Button x:Name="ButtonCreateMovie" Content="Create Movie" Margin="0,0,95,18" Height="34" Click="ButtonCreateMovie_click" Background="#FFC5FBC0" VerticalAlignment="Bottom" FontSize="11" HorizontalAlignment="Right" Width="70"/>
+        <Button x:Name="ButtonDeleteMovie" Content="Delete Movie" Margin="0,0,10,18" VerticalAlignment="Bottom" Height="34" Background="#FFCA8C8C" Click="ButtonDeleteMovie_click" FontSize="11" HorizontalAlignment="Right" Width="70"/>
+        <Button x:Name="ButtonEditMovie" Content="Edit Movie" HorizontalAlignment="Right" Margin="0,0,180,18" VerticalAlignment="Bottom" Height="34" Width="70" Click="ButtonEditMovie_click" Background="#FFA9E2FF"/>
+        <Label Content="Selected Movie" HorizontalAlignment="Left" Margin="502,45,0,0" VerticalAlignment="Top" Width="152" FontSize="20"/>
+        <Label x:Name="lblMovieTitel" Content="MovieTitel" HorizontalAlignment="Left" Margin="532,95,0,0" VerticalAlignment="Top" Width="187"/>
+        <Label x:Name="lblMovieRelease" Content="MovieRelease" HorizontalAlignment="Left" Margin="532,122,0,0" VerticalAlignment="Top" Width="187"/>
+        <TextBlock x:Name="lblMovieDescription" MinWidth="120" MaxWidth="120" MinHeight="23" MaxHeight="286" HorizontalAlignment="Left" Margin="532,148,0,0" TextWrapping="Wrap" Text="" Padding="5" VerticalAlignment="Top" Width="187" Height="268"/>
+        <Label x:Name="lblUsersMovieList" Content="The users Movies" HorizontalAlignment="Left" Margin="265,38,0,0" VerticalAlignment="Top" Width="173" Height="55"/>
+        <Label Content="Title:" HorizontalAlignment="Center" Margin="0,95,0,0" VerticalAlignment="Top"/>
+        <Label Content="Year:" HorizontalAlignment="Center" Margin="0,122,0,0" VerticalAlignment="Top"/>
+        <Label Content="Plot:" HorizontalAlignment="Center" Margin="0,148,0,0" VerticalAlignment="Top"/>
+    </Grid>
+</Window>
