@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogicLayer", "..\Bu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieListWebApp", "..\MovieListWebApp\MovieListWebApp.csproj", "{1B78EF33-478D-464A-B86D-123FB345F814}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieListAPI", "..\MovieListAPI\MovieListAPI.csproj", "{EDB3E27C-EFC2-45E8-947C-00BD81367A79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF_api_test_app", "..\WPF_api_test_app\WPF_api_test_app.csproj", "{EB6B5FAA-50BD-4D06-97F9-63422AE7A4E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{1B78EF33-478D-464A-B86D-123FB345F814}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B78EF33-478D-464A-B86D-123FB345F814}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B78EF33-478D-464A-B86D-123FB345F814}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDB3E27C-EFC2-45E8-947C-00BD81367A79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDB3E27C-EFC2-45E8-947C-00BD81367A79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDB3E27C-EFC2-45E8-947C-00BD81367A79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDB3E27C-EFC2-45E8-947C-00BD81367A79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB6B5FAA-50BD-4D06-97F9-63422AE7A4E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB6B5FAA-50BD-4D06-97F9-63422AE7A4E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB6B5FAA-50BD-4D06-97F9-63422AE7A4E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB6B5FAA-50BD-4D06-97F9-63422AE7A4E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

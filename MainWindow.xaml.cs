@@ -229,7 +229,16 @@ namespace MovieList
 
         private void ButtonEditMovie_click(object sender, RoutedEventArgs e)
         {
-            Errorlabel.Content = "edit Movie click.";
+            Movie selectedMovie = (Movie)MovieListBoxAll.SelectedItem;
+            if (selectedMovie == null)
+            {
+                System.Windows.MessageBox.Show("Please select a movie to edit.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            var editMovieWindow = new EditMovie(this, selectedMovie);
+
+            editMovieWindow.ShowDialog();
         }
 
         private void ButtonDeleteMovie_click(object sender, RoutedEventArgs e)

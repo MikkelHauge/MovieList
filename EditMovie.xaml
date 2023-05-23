@@ -1,0 +1,20 @@
+﻿<Window x:Class="MovieList.EditMovie"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MovieList"
+        mc:Ignorable="d"
+        Title="Edit Movie" Height="450" Width="450" ResizeMode="NoResize">
+    <Grid Background="#FFA9E2FF" Margin="0,0,0,0">
+        <Label x:Name="lblMovieTitle" Content="Editing Movie lbl (movietitle)" Margin="10,10,17,0" VerticalAlignment="Top" Height="78" FontSize="24"/>
+        <Label Content="Title" HorizontalAlignment="Left" Margin="10,104,0,0" VerticalAlignment="Top" Width="100"/>
+        <Label Content="Release Year" HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top" Width="100"/>
+        <Label Content="Description" HorizontalAlignment="Left" Margin="10,156,0,0" VerticalAlignment="Top" Width="100"/>
+        <TextBox x:Name="txtbox_editmovie_title" HorizontalAlignment="Left" Margin="115,108,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="170"/>
+        <TextBox x:Name="txtbox_editmovie_releaseyear" HorizontalAlignment="Left" Margin="115,134,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="170"/>
+        <TextBox x:Name="txtbox_editmovie_description" HorizontalAlignment="Left" Margin="115,160,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="170" Height="227"/>
+        <Button x:Name="btnAcceptMovieEdit" Content="Accept Movie Edit" HorizontalAlignment="Left" Margin="301,340,0,0" VerticalAlignment="Top" Height="47" Width="132" BorderBrush="Black" Foreground="Black" Background="#FFA5C4D8" Click="btnAcceptMovieEdit_click"/>
+
+    </Grid>
+</Window>

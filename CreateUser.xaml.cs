@@ -37,48 +37,51 @@ namespace MovieList
 
         private void button_createactualuser_click(object sender, RoutedEventArgs e)
         {
-            string username = txtbox_newUserName.Text;
-            string pattern = @"^[a-zA-Z0-9]+(?:\s[a-zA-Z0-9]+)*$";
-;
-
-
             // tjek om navne-feltet er tomt (uændret navn)
             if (txtbox_newUserName.Text.Length == 0)
             {
                 
-                MessageBox.Show("Navnet er tomt.\nBrugernavnet skal indholde 2 navne. Fx. 'Torben Krøjmand'.\nMå kun indeholde tal og bogstaver.\nSamt det ene mellemrum.\"", "👎", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Navnet er tomt.\nBrugernavnet må ikke være tomt. Fx. 'Torben Krøjmand'.\nMå kun indeholde tal og bogstaver.\nSamt det ene mellemrum.\"", "👎", MessageBoxButton.OK, MessageBoxImage.Information);
                 int index = mainWindow.UserListBox.Items.IndexOf(createdUser);
                 mainWindow.UserListBox.SelectedIndex = index;
                 this.Close();
                 mainWindow.RefreshData();
 
             }
-            else if (!Regex.IsMatch(username, pattern))
-            {
-                MessageBox.Show("Brugernavnet må kun indeholde tal og bogstaver.\nSamt det ene mellemrum.", "👎", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
             else
             {
                 // check for dublet!
-                var checkNewUserName = userRepo.GetByName(txtbox_newUserName.Text);
+                var newuser = userRepo.GetByName(txtbox_newUserName.Text);
 
-                if (checkNewUserName != null)
+                if (newuser != null)
                 {
                     MessageBox.Show("Brugernavnet er allerede i brug. Vælg et andet.🤷‍♂️\nNavne-tjek er ikke case-sensitive. 'Jens' og 'jens' er det samme.", "👎", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 }
                 else
                 {
-                    // Opret User.
-                    createdUser = new User();
-                    createdUser.Name = txtbox_newUserName.Text;
-                    userRepo.Add(createdUser);
-                    context.SaveChanges();
-                    MessageBox.Show("Brugeren " + createdUser.Name + "blev oprettet.\nHusk at tilføj film til din bruger.", "👍", MessageBoxButton.OK, MessageBoxImage.Information);
-                    int index = mainWindow.UserListBox.Items.IndexOf(createdUser);
-                    mainWindow.UserListBox.SelectedIndex = index;
-                    this.Close();
-                    mainWindow.RefreshData();
+                    try
+                    {
+                        // Opret User.
+                        createdUser = new User();
+                        createdUser.Name = txtbox_newUserName.Text;
+                        userRepo.Add(createdUser);
+                        context.SaveChanges();
+
+                        MessageBox.Show("Brugeren " + createdUser.Name + "blev oprettet.\nHusk at tilføj film til din bruger, inde i 'Edit User'.", "👍", MessageBoxButton.OK, MessageBoxImage.Information);
+
+
+                        int index = mainWindow.UserListBox.Items.IndexOf(createdUser);
+                        mainWindow.UserListBox.SelectedIndex = index;
+                        this.Close();
+                        mainWindow.RefreshData();
+                    } catch {
+                        MessageBox.Show("Brugeren " + createdUser.Name + "blev ikke oprettet.\nDer er sket en fejl.", "👎", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    }
+
+
+
                 }
             }
         }

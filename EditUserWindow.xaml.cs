@@ -19,8 +19,6 @@ namespace MovieList
     public partial class EditUserWindow : Window
     {
 
-        private static ComboBoxItem currentSortOption;
-
         private static User selectedUser;
         private static MainWindow mainWindow;
         private static Context context = new Context();
@@ -35,6 +33,8 @@ namespace MovieList
             Listbox_allMovies.DisplayMemberPath = "TitleAndYear";
             Listbox_userMovies.DisplayMemberPath = "TitleAndYear";
             DropDown_userMovies.SelectedIndex = 0;
+            Listbox_userMovies.ItemsSource = Enumerable.Empty<Movie>();
+
             RefreshMovieLists();
         }
 
@@ -48,52 +48,27 @@ namespace MovieList
         }
 
 
-        private void DropDown_userMovies_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            string selectedSortingOption = (string)((ComboBoxItem)DropDown_userMovies.SelectedItem).Content;
-            Listbox_userMovies.ItemsSource = null;
-            Listbox_userMovies.Items.Clear();
-            switch (selectedSortingOption)
-            {
-                case "By Release Year":
-                    SortMoviesByYear();
-                    break;
-
-                case "By Title":
-                    SortMoviesByTitle();
-                    break;
-
-                case "By MovieID":
-                    SortMoviesByID();
-                    break;
-
-                case "By Hype":
-                    SortMoviesByHype();
-                    break;
-            }
-        }
-
-
-
-
-
-
         private void btnAddSelectedMovie_Click(object sender, RoutedEventArgs e)
         {
             if (Listbox_allMovies.SelectedItem != null)
             {
-                var selectedMovie = (Movie)Listbox_allMovies.SelectedItem;
+                using(var context = new Context())
+                {
+                    var userRepo = new UserRepository(context);
 
-                // Add the movie to the selected user's list of movies
-                selectedUser.Movies.Add(selectedMovie);
+                    var selectedMovie = (Movie)Listbox_allMovies.SelectedItem;
 
-                // Save changes to the database
-                var userRepo = new UserRepository(context);
-                userRepo.Update(selectedUser);
-                context.SaveChanges();
+                    // Add the movie to the selected user's list of movies
+                    selectedUser.Movies.Add(selectedMovie);
 
-                // Refresh the movie lists
-                RefreshMovieLists();
+                    // Save changes to the database
+                    userRepo.Update(selectedUser);
+                    context.SaveChanges();
+
+                    // Refresh the movie lists
+                    RefreshMovieLists();
+                }
+
             }
         }
 
@@ -116,8 +91,6 @@ namespace MovieList
 
         private void btnAcceptUserEdit_click(object sender, RoutedEventArgs e)
         {
-            string username = txtbox_newUserName.Text;
-            string pattern = @"^[a-zA-Z0-9]+(?:\s[a-zA-Z0-9]+)*$";
             string allMovieTitles = "";
             foreach (var movie in selectedUser.Movies)
             {
@@ -137,10 +110,6 @@ namespace MovieList
                 mainWindow.RefreshData();
 
             }
-            else if (!Regex.IsMatch(username, pattern))
-            {
-                MessageBox.Show("Brugernavnet må kun indeholde tal og bogstaver.\nSamt det ene mellemrum.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
             else
             {
                 // check for dublet!
@@ -153,16 +122,24 @@ namespace MovieList
                 }
                 else
                 {
-                    // Opret User.
-                    string oldname = selectedUser.Name;
-                    selectedUser.Name = txtbox_newUserName.Text;
-                    userRepo.Update(selectedUser);
-                    context.SaveChanges();
-                    MessageBox.Show("Alt er godt - " + oldname + " blev rettet. og hedder nu " + selectedUser.Name + "!", "👍", MessageBoxButton.OK, MessageBoxImage.Information);
-                    int index = mainWindow.UserListBox.Items.IndexOf(selectedUser);
-                    mainWindow.UserListBox.SelectedIndex = index;
-                    this.Close();
-                    mainWindow.RefreshData();
+                    try
+                    {
+                        // Opret User.
+                        string oldname = selectedUser.Name;
+                        selectedUser.Name = txtbox_newUserName.Text;
+                        userRepo.Update(selectedUser);
+                        context.SaveChanges();
+                        MessageBox.Show("Alt er godt - " + oldname + " blev rettet. og hedder nu " + selectedUser.Name + "!", "👍", MessageBoxButton.OK, MessageBoxImage.Information);
+                        int index = mainWindow.UserListBox.Items.IndexOf(selectedUser);
+                        mainWindow.UserListBox.SelectedIndex = index;
+                        this.Close();
+                        mainWindow.RefreshData();
+                    } catch
+                    {
+                        MessageBox.Show("Brugernavnet er ikke godkendt. Vælg et andet.🤷‍♂️", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        txtbox_newUserName.Text = "";
+                    }
+
                 }
             }
         }
@@ -170,68 +147,54 @@ namespace MovieList
 
 
 
-        private void SortMoviesByYear()
+        private void DropDown_userMovies_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (DropDown_userMovies.Tag != null && (int)DropDown_userMovies.Tag == 1)
+            string selectedSortingOption = (string)((ComboBoxItem)DropDown_userMovies.SelectedItem).Content;
+            List<Movie> sortedMovies;
+            switch (selectedSortingOption)
             {
-                Listbox_userMovies.Items.SortDescriptions.Clear();
-                Listbox_userMovies.Items.SortDescriptions.Add(new SortDescription("Year", ListSortDirection.Descending));
-                DropDown_userMovies.Tag = 0;
+                case "By Release Year":
+                    sortedMovies = SortMoviesByYear();
+                    break;
+
+                case "By Title":
+                    sortedMovies = SortMoviesByTitle();
+                    break;
+
+                case "By MovieID":
+                    sortedMovies = SortMoviesByID();
+                    break;
+
+                case "By Hype":
+                    sortedMovies = SortMoviesByHype();
+                    break;
+
+                default:
+                    sortedMovies = selectedUser.Movies.ToList();
+                    break;
             }
-            else
-            {
-                Listbox_userMovies.Items.SortDescriptions.Clear();
-                Listbox_userMovies.Items.SortDescriptions.Add(new SortDescription("Year", ListSortDirection.Ascending));
-                DropDown_userMovies.Tag = 1;
-            }
+
+            Listbox_userMovies.ItemsSource = sortedMovies;
         }
 
-        private void SortMoviesByTitle()
+        private List<Movie> SortMoviesByYear()
         {
-            if (DropDown_userMovies.Tag != null && (int)DropDown_userMovies.Tag == 1)
-            {
-                Listbox_userMovies.Items.SortDescriptions.Clear();
-                Listbox_userMovies.Items.SortDescriptions.Add(new SortDescription("Title", ListSortDirection.Descending));
-                DropDown_userMovies.Tag = 0;
-            }
-            else
-            {
-                Listbox_userMovies.Items.SortDescriptions.Clear();
-                Listbox_userMovies.Items.SortDescriptions.Add(new SortDescription("Title", ListSortDirection.Ascending));
-                DropDown_userMovies.Tag = 1;
-            }
+            return selectedUser.Movies.OrderBy(m => m.ReleaseYear).ToList();
         }
 
-        private void SortMoviesByID()
+        private List<Movie> SortMoviesByTitle()
         {
-            if (DropDown_userMovies.Tag != null && (int)DropDown_userMovies.Tag == 1)
-            {
-                Listbox_userMovies.Items.SortDescriptions.Clear();
-                Listbox_userMovies.Items.SortDescriptions.Add(new SortDescription("MovieID", ListSortDirection.Descending));
-                DropDown_userMovies.Tag = 0;
-            }
-            else
-            {
-                Listbox_userMovies.Items.SortDescriptions.Clear();
-                Listbox_userMovies.Items.SortDescriptions.Add(new SortDescription("MovieID", ListSortDirection.Ascending));
-                DropDown_userMovies.Tag = 1;
-            }
+            return selectedUser.Movies.OrderBy(m => m.Title).ToList();
         }
 
-        private void SortMoviesByHype()
+        private List<Movie> SortMoviesByID()
         {
-            if (DropDown_userMovies.Tag != null && (int)DropDown_userMovies.Tag == 1)
-            {
-                Listbox_userMovies.Items.SortDescriptions.Clear();
-                Listbox_userMovies.Items.SortDescriptions.Add(new SortDescription("Users.Count", ListSortDirection.Descending));
-                DropDown_userMovies.Tag = 0;
-            }
-            else
-            {
-                Listbox_userMovies.Items.SortDescriptions.Clear();
-                Listbox_userMovies.Items.SortDescriptions.Add(new SortDescription("Users.Count", ListSortDirection.Ascending));
-                DropDown_userMovies.Tag = 1;
-            }
+            return selectedUser.Movies.OrderBy(m => m.MovieId).ToList();
+        }
+
+        private List<Movie> SortMoviesByHype()
+        {
+            return selectedUser.Movies.OrderByDescending(m => m.Users.Count).ToList();
         }
 
 

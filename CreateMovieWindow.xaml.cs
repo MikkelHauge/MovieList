@@ -51,11 +51,21 @@ namespace MovieList
             using (var context = new Context())
             {
                 var movieRepo = new MovieRepository(context);
-                movieRepo.Add(newMovie);
 
-                MessageBox.Show("Movie Created!\n\nTitle: " + newMovie.Title + "\nRelease Year: "+newMovie.ReleaseYear);
+                try
+                {
+                    movieRepo.Add(newMovie);
+                    MessageBox.Show("Movie Created!\n\nTitle: " + newMovie.Title + "\nRelease Year: " + newMovie.ReleaseYear);
 
-                mainWindow.RefreshData(); // refresh the UI to show the new movie in the list
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Fejl under oprettelse af filmen. Måske har du skrevet noget nonsense som titel, eller en ugyldig release year?\n\n" + ex.Message);
+                }
+
+
+                mainWindow.RefreshData();
                 this.Close();
             }
         }
