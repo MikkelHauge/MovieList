@@ -1,0 +1,11 @@
+﻿@model BusinessLogicLayer.Model.User
+
+<a href="@Url.Action("Details", "Users", new { id = Model.UserId })">
+    <div class="user">
+        <div class="user-name">@Model.Name</div>
+        <div class="user-details">
+            <div class="user-id">User ID: @Model.UserId</div>
+            <div class="user-movies-count">Number of movies: @Model.Movies.Count</div>
+        </div>
+    </div>
+</a>

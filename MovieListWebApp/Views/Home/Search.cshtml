@@ -1,0 +1,60 @@
+﻿@model MovieListWebApp.Models.UserMovieViewModel
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>@Html.ActionLink("⬅️", "Index") Search Results:</h2>
+<div>
+    @if (Model.Users != null && Model.Users.Count > 0)
+    {
+        if (Model.Users.Count == 1)
+        {
+            <p>@Model.Users.Count user matched your search pattern!</p>
+        }
+        else
+        {
+            <p>@Model.Users.Count users matched your search pattern!</p>
+        }
+        foreach (var item in Model.Users)
+        {
+            <div class="user-list">
+                @Html.Action("UserChildView", "Users", new { UserID = item.UserId })
+            </div>
+        }
+    }
+    else
+    {
+        <hr />
+        <p>No users matched your search pattern.</p>
+    }
+    @if (Model.Movies != null && Model.Movies.Count > 0)
+    {
+        if (Model.Movies.Count == 1)
+        {
+            <p>@Model.Movies.Count movie matched your search pattern!</p>
+        }
+        else
+        {
+            <p>@Model.Movies.Count movies matched your search pattern!</p>
+        }
+        foreach (var item in Model.Movies)
+        {
+            <div class="movie-list">
+
+                @Html.Action("MovieChildView", "Movies", new { MovieId = item.MovieId })
+            </div>
+        }
+    }
+    else
+    {
+        <p>No movies matched your search pattern.</p>
+    }
+    <hr />
+
+
+    <p>
+        @Html.ActionLink("Back to frontpage", "Index")
+    </p>
+</div>
+

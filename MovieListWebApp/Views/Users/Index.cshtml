@@ -1,0 +1,115 @@
+﻿@model MovieListWebApp.Models.UserMovieViewModel
+
+@{
+    ViewBag.Title = "Users";
+}
+
+<h2>All Users</h2>
+<div class='line'>
+    <h4 class='flipX'>@Html.ActionLink("Create New User", "Create")</h4>
+</div>
+<table class="table">
+    <div class="sorting">
+        Sort by:
+        @if (ViewBag.SelectedSortMethod == "Name")
+        {
+            <span class="selectedSortMethod">Name</span>
+        }
+        else
+        {
+            <a href="@Url.Action("Index", new { sortOrder = "Name" })">Name</a>
+        }
+        @if (ViewBag.SelectedSortMethod == "List")
+        {
+            <span class="selectedSortMethod">Movie List Size</span>
+        }
+        else
+        {
+            <a href="@Url.Action("Index", new { sortOrder = "List" })">Movie List Size</a>
+        }
+        @if (ViewBag.SelectedSortMethod == "UserID")
+        {
+            <span class="selectedSortMethod">User ID</span>
+        }
+        else
+        {
+            <a href="@Url.Action("Index", new { sortOrder = "UserID" })">User ID</a>
+        }
+        @if (ViewBag.SelectedSortMethod == "Random")
+        {
+            <span class="selectedSortMethod"><a href="@Url.Action("Index", new { sortOrder = "Random" })">Random</a></span>
+        }
+        else
+        {
+            <a href="@Url.Action("Index", new { sortOrder = "Random" })">Random</a>
+        }
+    </div>
+
+
+
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Users[0].Name)
+        </th>
+        <th></th>
+    </tr>
+    @if (Model != null)
+    {
+        foreach (var item in Model.Users)
+        {
+            <tr>
+                <td>
+                    <a href="@Url.Action("Details", "Users", new { id = @item.UserId })">
+                        <div class="user">
+                            <div class="user-name">@item.Name</div>
+                            <div class="user-details">
+                                <div class="user-id">User ID: @item.UserId</div>
+                                @if (item.Movies != null && item.Movies.Any())
+                                {
+                                    <div class="movie-count">Movie count: @(item.Movies != null ? item.Movies.Count : 0)</div>
+
+                                }
+                                else
+                                {
+                                    <div class="movie-count">Movie count: 0</div>
+                                }
+
+
+                            </div>
+                        </div>
+                    </a>
+
+
+                </td>
+
+                <td>
+                    <div class="editButton">
+                        @Html.ActionLink("Edit Username", "Edit", new { id = item.UserId })
+
+                    </div>
+                    <br />
+                    <br />
+                    <div class="deleteButton">
+                        @Html.ActionLink("Delete", "Delete", new { id = item.UserId })
+                    </div>
+
+                </td>
+            </tr>
+        }
+    }
+
+
+</table>
+<style>
+    .selectedSortMethod {
+        font-weight: bold;
+        text-shadow: 1px 1px 1px, black;
+    }
+</style>
+
+@section info{
+    <div>
+        <h5>Stats:</h5>
+        <p>Total Users: @Model.Users.Count</p>
+    </div>
+}

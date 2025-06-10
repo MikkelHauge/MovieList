@@ -1,0 +1,82 @@
+﻿@model MovieListWebApp.Models.UserMovieViewModel
+
+@{
+    ViewBag.Title = "Movies";
+}
+
+<h2>All Movies</h2>
+<div class='line'>
+    <h4 class='flipX'>@Html.ActionLink("Create New Movie", "Create")</h4>
+</div>
+  Sort by:
+@if (ViewBag.SelectedSortMethod == "Title")
+{
+    <span class="selectedSortMethod">Title</span>
+}
+else
+{
+    <a href="@Url.Action("Index", new { sortOrder = "Title" })">Title</a>
+}
+@if (ViewBag.SelectedSortMethod == "Year")
+{
+    <span class="selectedSortMethod">Year</span>
+}
+else
+{
+    <a href="@Url.Action("Index", new { sortOrder = "Year" })">Year</a>
+}
+@if (ViewBag.SelectedSortMethod == "Popularity")
+{
+    <span class="selectedSortMethod">Popularity</span>
+}
+else
+{
+    <a href="@Url.Action("Index", new { sortOrder = "Popularity" })">Popularity</a>
+}
+@if (ViewBag.SelectedSortMethod == "MovieID")
+{
+    <span class="selectedSortMethod">MovieID</span>
+}
+else
+{
+<a href="@Url.Action("Index", new { sortOrder = "MovieID" })">MovieID</a>
+}
+@if (ViewBag.SelectedSortMethod == "Random")
+{
+    <span class="selectedSortMethod"><a href="@Url.Action("Index", new { sortOrder = "Random" })">Random</a></span>
+}
+else
+{
+    <a href="@Url.Action("Index", new { sortOrder = "Random" })">Random</a>
+}
+
+<div class="movie-list">
+    @if (Model.Movies != null)
+    {
+        int count = 0;
+        foreach (var movie in Model.Movies)
+        {
+            @Html.Action("MovieChildView", "Movies", new { MovieId = movie.MovieId, counter = count })
+            count++;
+        }
+    }
+    else
+    {
+        <p>No movies found</p>
+    }
+</div>
+
+<style>
+    .selectedSortMethod {
+        font-weight: bold;
+        text-shadow: 1px 1px 1px, black;
+    }
+</style>
+
+
+@section info{
+    <div>
+        <h5>Stats:</h5>
+        <p>Total Movies: @Model.Movies.Count</p>
+    </div>
+}

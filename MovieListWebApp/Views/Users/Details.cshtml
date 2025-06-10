@@ -1,0 +1,104 @@
+﻿@model BusinessLogicLayer.Model.User
+
+@{
+    ViewBag.Title = "Details";
+}
+<h2>
+
+    @Html.ActionLink("⬅️", "Index")
+    @Html.DisplayFor(model => model.Name)
+</h2>
+    <h4>User Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dd>
+            user id
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+    </dl>
+
+    <div>
+        <h4>
+            @Html.DisplayFor(model => model.Name)'s Movies
+        </h4>
+        
+        <div class="movie-list">
+            @if (Model.Movies != null)
+            {
+
+                foreach (var movie in Model.Movies)
+                {
+                    <div class="usermovielist">
+                        <div class="movie-child-view">
+                            @Html.Action("MovieChildView", "Movies", new { MovieId = movie.MovieId })
+                        </div>
+
+                        <div class="remove-movie-form">
+                            <form method="post" action="@Url.Action("RemoveMovie", "Home")">
+                                <input type="hidden" name="userId" value="@Model.UserId" />
+                                <input type="hidden" name="movieId" value="@movie.MovieId" />
+                                <button id="removeMovieButton" type="submit">Remove @movie.Title from list 🗑️</button>
+                            </form>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>No movies found</p>
+            }
+
+        </div>
+            <div>
+                <h4>
+                    Movies not on @Html.DisplayFor(model => model.Name)'s list
+                </h4>
+                @if (ViewBag.Nonlisted.Count > 0)
+                {
+                    foreach (var movie in ViewBag.Nonlisted)
+                    {
+                        <li>
+                            @{ Html.BeginForm("AddMovie", "Home", FormMethod.Get); }
+                            <input type="hidden" name="userId" value="@Model.UserId" />
+                            <input type="hidden" name="movieId" value="@movie.MovieId" />
+                            <input type="submit" value="Add @movie.Title 🎥" />
+                            @{ Html.EndForm(); }
+                        </li>
+                    }
+                }
+            </div>
+
+            <p>
+                @Html.ActionLink("Edit this user", "Edit", new { id = Model.UserId }) |
+                @Html.ActionLink("Back to All Users", "Index")
+            </p>
+
+            <style>
+                .movie-list {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: space-between;
+                }
+
+                .movie-child-view {
+                    margin-bottom: 20px;
+                }
+
+                .remove-movie-form {
+                    margin-top: 10px;
+                }
+                .usermovielist {
+                    background-color: #76c893;
+                    border-radius: 25px;
+                }
+                .remove-movie-form{
+
+                }
+            </style>

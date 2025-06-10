@@ -1,0 +1,72 @@
+﻿@model MovieListWebApp.Models.UserMovieViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<h2>
+    @Html.ActionLink("⬅️", "Index")
+    @Html.DisplayFor(model => model.Movies[0].Title)
+</h2>
+<!-- >
+    model.Movies[0], fordi: viewModel indeholder List<Movie> og samme med User. Men jeg ved jo at vi kun putter EN ind i listen.
+</!-->
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Movies[0].Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Movies[0].Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Movies[0].ReleaseYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Movies[0].ReleaseYear)
+        </dd>
+
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Movies[0].Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Movies[0].Description)
+        </dd>
+
+        <h4>Movie Poster</h4>
+        <div>
+            <img src="@ViewBag.posterURL" alt="Movie Poster" width="500">
+        </div>
+        <h4>Who wants to watch?</h4>
+        <div>
+            @if (Model.Users != null || Model.Users.Count > 0)
+            {
+                foreach (var User in Model.Users)
+                {
+                    <div>
+                        <a href="@Url.Action("Details", "Users", new { id = User.UserId })">
+                            @User.Name
+
+                    </div>
+                }
+            }
+            else
+            {
+                <div>
+                    No users wants to watch this, yet.
+                </div>
+            }
+        </div>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit this movie", "Edit", new { id = Model.Movies[0].MovieId }) |
+    @Html.ActionLink("Back to All Movies", "Index")
+</p>

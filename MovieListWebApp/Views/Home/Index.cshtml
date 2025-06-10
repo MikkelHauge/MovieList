@@ -1,0 +1,60 @@
+﻿@model MovieListWebApp.Models.UserMovieViewModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<main>
+    <section class="row" aria-labelledby="aspnetTitle">
+        <h1 id="title">MovieList Front Page</h1>
+    </section>
+    <h2>Users</h2>
+    <div class="user-list">
+
+        @if (Model.Users != null)
+        {
+            foreach (var user in Model.Users)
+            {
+                @Html.Action("UserChildView", "Users", new { UserID = user.UserId })
+            }
+        }
+        else
+        {
+            <p>No users found</p>
+        }
+    </div>
+    <h2>Movies</h2>
+    <div class="movie-list">
+        @if (Model.Movies != null)
+        {
+
+            foreach (var movie in Model.Movies)
+            {
+                @Html.Action("MovieChildView", "Movies", new { MovieId = movie.MovieId })
+
+            }
+        }
+        else
+        {
+            <p>No movies found</p>
+        }
+    </div>
+    @Html.ActionLink("Users", "Index", "Users")
+    @Html.ActionLink("Movies", "Index", "Movies")
+</main>
+
+<style>
+    navbar-white {
+        background-color: white;
+        color: black;
+        text-decoration: none;
+    }
+</style>
+
+@section info{
+    <div>
+        <h5>Stats:</h5>
+        <p>Total Users: @Model.Users.Count</p>
+        <p>Total Movies: @Model.Movies.Count</p>
+    </div>
+    }

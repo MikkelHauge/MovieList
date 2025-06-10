@@ -1,0 +1,60 @@
+﻿<Window x:Class="WPF_api_test_app.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_api_test_app"
+        mc:Ignorable="d"
+        Title="API Test App" Height="500" Width="1000">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFD2D2D2"/>
+                <GradientStop Color="#FFA68FB7" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <ListBox x:Name="listbox_allUsers" DisplayMemberPath="nameAndId" d:ItemsSource="{d:SampleData ItemCount=5}" Height="NaN" Margin="28,70,0,191" Width="134" HorizontalAlignment="Left"/>
+        <ListBox x:Name="listbox_allMovies" DisplayMemberPath="TitleAndId" d:ItemsSource="{d:SampleData ItemCount=5}" Height="266" Margin="339,70,0,0" Width="134" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Button x:Name="btnGetAllUsers" Content="Get All Users" HorizontalAlignment="Left" Margin="28,45,0,0" VerticalAlignment="Top" Width="134" Click="btnGetAllUsers_click"/>
+        <Button x:Name="btnGetAllMovies" Content="Get All Movies" HorizontalAlignment="Left" Margin="339,45,0,0" VerticalAlignment="Top" Width="134" Click="btnGetAllMovies_click"/>
+        <Button x:Name="btnGetUserWithID" Content="Get User with ID" HorizontalAlignment="Left" Margin="188,45,0,0" VerticalAlignment="Top" Width="134" Click="btnGetUserWithID_click"/>
+        <Button x:Name="btnGetMovieWithID" Content="Get Movie with ID" HorizontalAlignment="Left" Margin="486,45,0,0" VerticalAlignment="Top" Width="134" Click="btnGetMovieWithID_click"/>
+        <Button x:Name="btnAddMovieToUser" Content="Add Movie to User" HorizontalAlignment="Left" Margin="339,349,0,0" VerticalAlignment="Top" Height="23" Width="134" Click="btnAddMovieToUser_click"/>
+        <Button x:Name="btnRemoveMovie" Content="Remove Movie" HorizontalAlignment="Left" Margin="188,349,0,0" VerticalAlignment="Top" Height="23" Width="134" Click="btnRemoveMovie_click"/>
+        <Label Content="All Users" HorizontalAlignment="Left" Margin="28,10,0,0" VerticalAlignment="Top" Width="134" FontSize="20"/>
+        <Label Content="All Movies" HorizontalAlignment="Left" Margin="339,8,0,0" VerticalAlignment="Top" Width="134" FontSize="20"/>
+        <TextBox x:Name="textbox_idGetMovie" HorizontalAlignment="Left" Margin="548,21,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="42" Height="19"/>
+        <Label Content="MovieID:" HorizontalAlignment="Left" Margin="486,16,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textbox_idGetUser" HorizontalAlignment="Left" Margin="248,21,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="42" Height="19"/>
+        <Label Content="UserID:" HorizontalAlignment="Left" Margin="188,16,0,0" VerticalAlignment="Top"/>
+        <Label Content="Titel:" HorizontalAlignment="Left" Margin="486,70,0,0" VerticalAlignment="Top"/>
+        <Label Content="Release Year:" HorizontalAlignment="Left" Margin="486,131,0,0" VerticalAlignment="Top"/>
+        <Label Content="Description:" HorizontalAlignment="Left" Margin="486,163,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textbox_GetMovie_title" HorizontalAlignment="Left" Margin="486,96,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="134" Height="35"/>
+        <TextBox x:Name="textbox_GetMovie_releaseyear" HorizontalAlignment="Left" Margin="583,136,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="37"/>
+        <TextBox x:Name="textbox_GetMovie_description" HorizontalAlignment="Left" Margin="486,194,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="134" Height="178"/>
+        <Button x:Name="btnAcceptEditMovie" Content="Accept Edit Movie" HorizontalAlignment="Left" Margin="486,379,0,0" VerticalAlignment="Top" Width="134" Click="btnAcceptEditMovie_click"/>
+        <Button x:Name="btnDeleteMovie" Content="Delete Selected Movie" HorizontalAlignment="Left" Margin="339,379,0,0" VerticalAlignment="Top" Width="134" Click="btnDeleteMovie_click"/>
+        <Button x:Name="btnDeleteUser" Content="Delete Selected User" HorizontalAlignment="Left" Margin="28,306,0,0" VerticalAlignment="Top" Width="134" Click="btnDeleteUser_click"/>
+        <Label Content="Name:" HorizontalAlignment="Left" Margin="188,70,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbl_movie_detail_id" Content="id" HorizontalAlignment="Left" Margin="583,69,0,0" VerticalAlignment="Top" Width="38" Foreground="#FFA7A7A7"/>
+        <Label x:Name="lbl_user_id" Content="id" HorizontalAlignment="Left" Margin="284,70,0,0" VerticalAlignment="Top" Width="38" Foreground="#FFA7A7A7"/>
+        <TextBox x:Name="textbox_userName" HorizontalAlignment="Left" Margin="188,96,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="134" Height="35"/>
+        <ListBox x:Name="listbox_users_movieList" d:ItemsSource="{d:SampleData ItemCount=5}" Height="NaN" Margin="188,162,0,148" Width="134" HorizontalAlignment="Left"/>
+        <Label Content="Movies:" HorizontalAlignment="Left" Margin="188,136,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnEditUser" Content="Edit Username" HorizontalAlignment="Left" Margin="188,379,0,0" VerticalAlignment="Top" Width="134" Click="btnEditUser_click"/>
+        <TextBox x:Name="textbox_errormsg" HorizontalAlignment="Left" Margin="663,27,0,0" TextWrapping="Wrap" Text="Info-beskeder bliver vist her" VerticalAlignment="Top" Width="318" Height="69"/>
+        <Button x:Name="btnCreateNewUser" Content="Create New User" HorizontalAlignment="Left" Margin="28,421,0,0" VerticalAlignment="Top" Width="134" Click="btnCreateNewUser_click"/>
+        <TextBox x:Name="textbox_newUserName" HorizontalAlignment="Left" Margin="28,389,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Name for new user:" HorizontalAlignment="Left" Margin="28,361,0,0" VerticalAlignment="Top"/>
+        <Label Content="Title" HorizontalAlignment="Left" Margin="695,156,0,0" VerticalAlignment="Top" Width="60"/>
+        <Label Content="Release Year" HorizontalAlignment="Left" Margin="695,203,0,0" VerticalAlignment="Top"/>
+        <Label Content="Description" HorizontalAlignment="Left" Margin="695,249,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textbox_newMovieTitle" HorizontalAlignment="Left" Margin="798,163,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="155"/>
+        <TextBox x:Name="textbox_newMovieReleaseYear" HorizontalAlignment="Left" Margin="798,207,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="155"/>
+        <TextBox x:Name="textbox_newMovieDescription" HorizontalAlignment="Left" Margin="798,253,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="155" Height="119"/>
+        <Label Content="(Må godt være tom)" HorizontalAlignment="Left" Margin="672,275,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnCreateNewMovie" Content="Create New Movie" HorizontalAlignment="Left" Margin="812,391,0,0" VerticalAlignment="Top" Width="126" Click="btnCreateNewMovie_click"/>
+
+    </Grid>
+</Window>

@@ -1,0 +1,14 @@
+C:\Users\Mikkel\source\repos\BusinessLogicLayer\bin\Debug\BusinessLogicLayer.dll.config
+C:\Users\Mikkel\source\repos\BusinessLogicLayer\bin\Debug\BusinessLogicLayer.dll
+C:\Users\Mikkel\source\repos\BusinessLogicLayer\bin\Debug\BusinessLogicLayer.pdb
+C:\Users\Mikkel\source\repos\BusinessLogicLayer\bin\Debug\EntityFramework.dll
+C:\Users\Mikkel\source\repos\BusinessLogicLayer\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Mikkel\source\repos\BusinessLogicLayer\bin\Debug\EntityFramework.xml
+C:\Users\Mikkel\source\repos\BusinessLogicLayer\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Mikkel\source\repos\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csproj.AssemblyReference.cache
+C:\Users\Mikkel\source\repos\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csproj.CoreCompileInputs.cache
+C:\Users\Mikkel\source\repos\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csproj.CopyComplete
+C:\Users\Mikkel\source\repos\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.dll
+C:\Users\Mikkel\source\repos\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.pdb
+C:\Users\Mikkel\source\repos\BusinessLogicLayer\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Mikkel\source\repos\BusinessLogicLayer\bin\Debug\Newtonsoft.Json.xml

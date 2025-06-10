@@ -1,0 +1,16 @@
+﻿@model BusinessLogicLayer.Model.Movie
+
+<a href="@Url.Action("Details", "Movies", new { id = Model.MovieId })">
+    <div class="movie">
+        <div class="movie-poster">
+            <img src="@ViewBag.Poster" alt="Movie Poster" width="200" height="300">
+        </div>
+        <div class="movie-details">
+            <h4>@Model.Title</h4>
+            <p>@Model.ReleaseYear</p>
+            <p>Movie ID: @Model.MovieId</p>
+            <p>How many users want to watch: @Model.Users.Count</p>
+
+        </div>
+    </div>
+</a>
