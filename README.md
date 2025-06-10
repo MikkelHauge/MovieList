@@ -1,3 +1,7 @@
+Her er teksten jeg sendte med, til afleveringen af opgaven, som beskriver lidt opsætning, så underviseren kan køre det på deres computer, samt lidt andet info så som fejl og mangler.
+Dette er en eksamensopgave fra 4. semester på datamatikeruddannelsen.
+
+Jeg fik 10 for denne opgave.
 
 # C# / .NET Eksamensopgave
 
